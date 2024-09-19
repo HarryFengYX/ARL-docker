@@ -866,6 +866,11 @@
             param: 'skip_scan_cdn_ip'
           },
           {
+            title: 'afrog',
+            name: 'afrog',
+            param: 'afrog'
+          },
+          {
             name: '服务识别',
             title: '服务识别',
             param: 'service_detection'
