@@ -52,6 +52,7 @@ api.add_namespace(routes.task_schedule_ns)
 api.add_namespace(routes.nuclei_result_ns)
 api.add_namespace(routes.wih_ns)
 api.add_namespace(routes.asset_wih_ns)
+api.add_namespace(routes.afrog_result_ns)
 
 
 arl_update()

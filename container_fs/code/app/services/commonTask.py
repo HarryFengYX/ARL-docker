@@ -5,6 +5,7 @@ from app import utils
 from app import services
 from app.config import Config
 from app.modules import CollectSource, WebSiteFetchStatus, WebSiteFetchOption
+from app.services.afrog_scan import afrog_scan
 from app.services.nuclei_scan import nuclei_scan
 from app.services import run_risk_cruising, BaseUpdateTask
 logger = utils.get_logger()
@@ -242,6 +243,17 @@ class WebSiteFetch(object):
 
         logger.info("end nuclei_scan， result:{}".format(len(scan_results)))
 
+    def afrog_scan(self):
+        logger.info("start afrog_scan， poc_sites:{}".format(len(self.poc_sites)))
+        print("afrog")
+        scan_results = afrog_scan(list(self.poc_sites))
+        for item in scan_results:
+            item["task_id"] = self.task_id
+            item["save_date"] = utils.curr_date()
+            utils.conn_db('afrog_result').insert_one(item)
+
+        logger.info("end afrog_scan， result:{}".format(len(scan_results)))
+
     def run_func(self, name: str, func: callable):
         logger.info("start run {}, {}".format(name, self.__str__()))
         self.base_update_task.update_task_field("status", name)
@@ -329,6 +341,10 @@ class WebSiteFetch(object):
         """ *** 对站点运行 nuclei """
         if self.options.get(WebSiteFetchOption.NUCLEI_SCAN):
             self.run_func(WebSiteFetchStatus.NUCLEI_SCAN, self.nuclei_scan)
+
+        """ *** 对站点运行 afrog """
+        if self.options.get(WebSiteFetchOption.AFROG_SCAN):
+            self.run_func(WebSiteFetchStatus.AFROG_SCAN, self.afrog_scan)
 
         """ *** 对站点调用 WebInfoHunter """
         if self.options.get(WebSiteFetchOption.Info_Hunter):

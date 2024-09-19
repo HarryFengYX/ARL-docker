@@ -1798,53 +1798,34 @@
             componentName: 'afrog',
             columns: [
               {
-                width: 88,
-                title: '序号',
-                dataIndex: 'index'
-              },
-              {
-                title: 'URL',
-                dataIndex: 'url',
-                scopedSlots: {
-                  customRender: 'urlItem',
-                  component: a.a.urlItem
-                }
-              },
-              {
-                width: 400,
-                title: '标题',
-                dataIndex: 'title'
+                width: 200,
+                title: '漏洞ID',
+                dataIndex: 'vuln_id'
               },
               {
                 width: 200,
-                title: '状态码',
-                dataIndex: 'status_code'
+                title: '漏洞名称',
+                dataIndex: 'infoname'
               },
               {
-                width: 300,
-                title: 'body 长度',
-                dataIndex: 'content_length'
+                width: 50,
+                title: '危害',
+                dataIndex: 'infoseg'
+              },
+              {
+                width: 200,
+                title: '详细地址',
+                dataIndex: 'fulltarget'
+              },
+              {
+                width: 100,
+                title: '地址',
+                dataIndex: 'target'
               }
             ],
             api: r.afrog,
             total: 0,
             searchGroup: [
-              {
-                label: 'URL',
-                value: 'url'
-              },
-              {
-                label: '标题',
-                value: 'title'
-              },
-              {
-                label: '状态码',
-                value: 'status_code'
-              },
-              {
-                label: 'body 长度',
-                value: 'content_length'
-              }
             ],
             params: {
               page: 1,
@@ -4568,7 +4549,7 @@
           })
         },
         afrog = function (t) {
-          return a.a.get('/afrog/', {
+          return a.a.get('/afrog_result/', {
             params: t
           })
         },

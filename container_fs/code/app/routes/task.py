@@ -39,6 +39,7 @@ base_search_task_fields = {
     'options.nuclei_scan': fields.Boolean(description="是否开启nuclei 扫描"),
     'options.findvhost': fields.Boolean(description="是否开启Host碰撞检测"),
     'options.web_info_hunter': fields.Boolean(description="是否开启 webInfoHunter"),
+    'options.afrog_scan': fields.Boolean(description="是否开启 afrog 扫描"),
     'statistic.site_cnt': fields.Integer(description="站点数量等于"),
     'statistic.site_cnt__gt': fields.Integer(description="站点数量大于"),
     'statistic.site_cnt__lt': fields.Integer(description="站点数量小于"),
@@ -77,6 +78,7 @@ add_task_fields = ns.model('AddTask', {
     "nuclei_scan": fields.Boolean(description="nuclei 扫描", example=False, default=False),
     "findvhost": fields.Boolean(example=False, default=False),
     "web_info_hunter": fields.Boolean(example=False, default=False, description="WEB JS 中的信息收集"),
+    "afrog_scan": fields.Boolean(example=False, default=False, description="afrog 扫描"),
 })
 
 
@@ -217,7 +219,7 @@ class DeleteTask(ARLResource):
         for task_id in task_id_list:
             utils.conn_db('task').delete_many({'_id': ObjectId(task_id)})
             table_list = ["cert", "domain", "fileleak","ip", "service",
-                          "site", "url", "vuln", "cip", "npoc_service", "wih", "nuclei_result", "stat_finger"]
+                          "site", "url", "vuln", "cip", "npoc_service", "wih", "nuclei_result", "stat_finger", "afrog_result"]
 
             if del_task_data_flag:
                 for name in table_list:

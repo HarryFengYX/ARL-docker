@@ -119,6 +119,7 @@ class WebSiteFetchOption:
     SITE_IDENTIFY = "site_identify"
     NUCLEI_SCAN = "nuclei_scan"  # nuclei 扫描
     Info_Hunter = "web_info_hunter"  # 对 JS 调用WebInfoHunter
+    AFROG_SCAN = "afrog_scan"   # afrog 扫描
 
 
 class WebSiteFetchStatus:
@@ -132,6 +133,7 @@ class WebSiteFetchStatus:
     POC_RUN = "poc_run"
     NUCLEI_SCAN = "nuclei_scan"
     Info_Hunter = "web_info_hunter"  # 对 JS 调用WebInfoHunter
+    AFROG_SCAN = "afrog_scan"   # afrog 扫描
 
 
 class CeleryRoutingKey:

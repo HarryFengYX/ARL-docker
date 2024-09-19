@@ -13,14 +13,10 @@ services:
           - mongodb
           - rabbitmq
         ports:
-          #http 服务，默认不映射出来
-          #- "5003:80"
-          - "5003:443"
+          - "5003:80"
         volumes:
-          - ./arl_web.log:/code/arl_web.log
-          - ./config-docker.yaml:/code/app/config.yaml
-          - ./image:/code/app/tmp_screenshot
           - ./poc:/opt/ARL-NPoC/xing/plugins/upload_poc
+          - ./container_fs/code:/code
         entrypoint: ["sh", "-c", "gen_crt.sh; nginx; wait-for-it.sh mongodb:27017; wait-for-it.sh rabbitmq:5672; gunicorn -b 0.0.0.0:5003 app.main:arl_app -w 3 --access-logfile arl_web.log"]
         environment:
           - LANG=en_US.UTF-8
@@ -34,9 +30,7 @@ services:
           - mongodb
           - rabbitmq
         volumes:
-          - ./arl_worker.log:/code/arl_worker.log
-          - ./config-docker.yaml:/code/app/config.yaml
-          - ./image:/code/app/tmp_screenshot
+          - ./container_fs/code:/code
           - ./poc:/opt/ARL-NPoC/xing/plugins/upload_poc
         entrypoint: ["sh", "-c", "wait-for-it.sh mongodb:27017; wait-for-it.sh rabbitmq:5672;
         celery -A app.celerytask.celery worker -l info -Q arlgithub -n arlgithub -c 2 -O fair -f arl_worker.log &

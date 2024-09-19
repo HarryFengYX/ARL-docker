@@ -226,7 +226,7 @@
                   name: 'nuclei 调用'
                 },
                 {
-                  value: 'afrog_call',
+                  value: 'afrog_scan',
                   name: 'afrog 调用'
                 },
                 {
